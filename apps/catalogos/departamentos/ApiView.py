@@ -11,13 +11,6 @@ class DepartamentoApiView(APIView):
     Vista para listar todos los departamentos o crear un nuevo departamento.
     """
 
-    #@swagger_auto_schema(responses={200: DepartamentoSerializer(many=True)})
-    # def get(self, request):
-    #     """
-    #     Listar todos los departamentos.
-    #     """
-    #     serialize = DepartamentoSerializer(Departamento.objects.all(), many=True)
-    #     return Response(status=status.HTTP_200_OK, data=serialize.data)
 
     @swagger_auto_schema(responses={200: DepartamentoSerializer(many=True)})
     def get(self, request):
@@ -27,16 +20,6 @@ class DepartamentoApiView(APIView):
         departamentos = Departamento.objects.all()
         serializer = DepartamentoSerializer(departamentos, many=True)
         return Response(serializer.data)
-
-    # @swagger_auto_schema(resquest_body=DepartamentoSerializer, responses={201: DepartamentoSerializer})
-    # def post(self, request):
-    #     """
-    #     Crear un nuevo departamento.
-    #     """
-    #     serialize = DepartamentoSerializer(data=request.data)
-    #     serialize.is_valid(raise_exception=True)
-    #     serialize.save()
-    #     return Response(status=status.HTTP_201_CREATED,data=serialize.data)
 
 
     @swagger_auto_schema(request_body=DepartamentoSerializer, responses={201: DepartamentoSerializer})
@@ -119,15 +102,5 @@ class DepartamentoDetails(APIView):
 
 
 
-# "FICHERO URLS DE MI APLICACION DEPARTAMENTOS USANDO LA VISTA APIVIEW"
-# from django.urls import path
-# from .views import DepartamentoApiView,DepartamentoDetails
-#
-#
-#
-# urlpatterns = [
-#     path('', DepartamentoApiView.as_view()), #para listar o crear departamentos
-#
-#     path('<int:pk>', DepartamentoDetails.as_view()), #para operaciones Get, Put, Patch, Delete
-# ]
+
 

@@ -7,7 +7,8 @@ from drf_yasg.utils import swagger_auto_schema
 from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
-from ...permissions import CustomPermission
+#from ...permissions import CustomPermission
+from apps.seguridad.permissions import CustomPermission
 from config.utils.Pagination import PaginationMixin
 import logging.handlers
 

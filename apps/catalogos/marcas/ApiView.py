@@ -1,27 +1,31 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+
 from .models import Marca
 from .serializers import MarcaSerializer
+from drf_yasg.utils import swagger_auto_schema
 
 class MarcaApiView(APIView):
+    """
+    Vista para listar todas las marcas o crear una nueva marca.
+    """
 
-    def get(self, request, pk=None):
-        """
-        Obtener una marca específica (si se proporciona pk) o todas las marcas.
-        """
-        if pk:
-            try:
-                marca = Marca.objects.get(pk=pk)
-            except Marca.DoesNotExist:
-                return Response({'error': 'Marca no encontrada'}, status=status.HTTP_404_NOT_FOUND)
-            serializer = MarcaSerializer(marca)
-            return Response(serializer.data)
-        else:
-            marcas = Marca.objects.all()
-            serializer = MarcaSerializer(marcas, many=True)
-            return Response(serializer.data)
 
+
+    @swagger_auto_schema(responses={200: MarcaSerializer(many=True)})
+    def get(self, request):
+        """
+        Listar todas las marcas.
+        """
+        marcas = Marca.objects.all()
+        serializer = MarcaSerializer(marcas, many=True)
+        return Response(serializer.data)
+
+
+
+
+    @swagger_auto_schema(request_body=MarcaSerializer, responses={201: MarcaSerializer})
     def post(self, request):
         """
         Crear una nueva marca.
@@ -32,14 +36,35 @@ class MarcaApiView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, pk=None):
+
+
+
+class MarcaDetails(APIView):
+    """
+    Vista para obtener, actualizar o eliminar una marca en especifico.
+    """
+
+    @swagger_auto_schema(responses={200: MarcaSerializer})
+    def get(self, request, pk):
         """
-        Actualizar una marca existente completamente.
+        Obtener una marca especifica por su ID.
         """
         try:
             marca = Marca.objects.get(pk=pk)
         except Marca.DoesNotExist:
-            return Response({'error': 'Marca no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'Marca no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = MarcaSerializer(marca)
+        return  Response(serializer.data)
+
+    @swagger_auto_schema(request_body=MarcaSerializer, responses={200: MarcaSerializer})
+    def put(self, request, pk):
+        """
+        Actualizar completamente una marca por su ID.
+        """
+        try:
+            marca = Marca.objects.get(pk=pk)
+        except Marca.DoesNotExist:
+            return  Response({'error': 'Marca no encontrado'}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = MarcaSerializer(marca, data=request.data)
         if serializer.is_valid():
@@ -47,38 +72,38 @@ class MarcaApiView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def patch(self, request, pk=None):
+    @swagger_auto_schema(request_body=MarcaSerializer, responses={200: MarcaSerializer})
+    def patch(self, request, pk):
         """
-        Actualización parcial de una marca.
+        Actualizar parcialmente una marca por su ID.
         """
         try:
             marca = Marca.objects.get(pk=pk)
         except Marca.DoesNotExist:
-            return Response({'error': 'Marca no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'Marca no encontrado'}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = MarcaSerializer(marca, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return  Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk=None):
+    @swagger_auto_schema(responses={204: 'No content'})
+    def delete(self, request, pk):
         """
-        Eliminar una marca.
+        Eliminar una marca por su ID.
         """
         try:
             marca = Marca.objects.get(pk=pk)
         except Marca.DoesNotExist:
-            return Response({'error': 'Marca no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+            return  Response({'error': 'Marca no encontrado'}, status=status.HTTP_404_NOT_FOUND)
 
         marca.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# from django.urls import path
-# from .views import DepartamentoApiView
-#
-# urlpatterns = [
-#     path('departamentos/', DepartamentoApiView.as_view()),  # Para listar o crear departamentos
-#     path('departamentos/<int:pk>/', DepartamentoApiView.as_view()),  # Para operaciones GET, PUT, PATCH, DELETE
-# ]
+
+
+
+
+

@@ -12,14 +12,15 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Marca',
+            name='Proveedor',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('codigo', models.CharField(max_length=50, unique=True, verbose_name='Código')),
-                ('nombre', models.CharField(max_length=50, unique=True, verbose_name='Nombre')),
+                ('nombre', models.CharField(max_length=100, verbose_name='Nombre')),
+                ('apellido', models.CharField(max_length=100, verbose_name='Apellidos')),
             ],
             options={
-                'verbose_name_plural': 'Marcas',
+                'verbose_name_plural': 'Proveedores',
                 'permissions': [('puede_aprobar', 'Puede aprobar registros'), ('puede_rechazar', 'Puede rechazar registros')],
             },
         ),

@@ -1,23 +1,20 @@
 from django.db import models
-
-from apps.catalogos.departamentos.models import Departamento
-
 """
-Municipio
+Proveedores
 """
-
-class Municipio(models.Model):
+class Proveedor(models.Model):
     codigo = models.CharField(verbose_name='Código', max_length=50, unique=True)
     nombre = models.CharField(verbose_name='Nombre', max_length=100)
-    departamento = models.ForeignKey(Departamento,verbose_name='Departamento', on_delete=models.PROTECT)
-
+    apellido = models.CharField(verbose_name='Apellidos', max_length=100)
+    #longitud
+    #latitud
     class Meta:
-        verbose_name_plural = 'Municipios'
+        verbose_name_plural = 'Proveedores'
         permissions = [
             ("puede_aprobar", "Puede aprobar registros"),
             ("puede_rechazar", "Puede rechazar registros"),
         ]
 
     def __str__(self):
-        return f"{self.nombre}"
-        # return f"{self.codigo} - {self.nombre}"
+        return f"{self.nombre} - {self.apellido}"
+        # return f"{self.codigo} - {self.nombre} "

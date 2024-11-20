@@ -1,16 +1,8 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import ClienteViewSet
-from .ViewSet import *
 
-
-
-router = DefaultRouter()
-router.register(r'clientes', ClienteViewSet, basename='cliente')
-#router.register(r'departamentosS', DepartamentoViewSetES, basename='departamentoSSS')
+from django.urls import path
+from .views import ClienteApiView,ClienteDetails
 
 urlpatterns = [
-    path('', include(router.urls)),
-    #path('<int:pk>/activarDepartamento/', DepartamentoActivarView.as_view(), name='activar-departamento'),
-    #path("", DepartamentoApiView.as_view(), name="departamentos"),
+    path('', ClienteApiView.as_view()),  # Para listar o crear clientes
+    path('<int:pk>', ClienteDetails.as_view()),  # Para operaciones GET, PUT, PATCH, DELETE
 ]

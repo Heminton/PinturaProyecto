@@ -7,9 +7,6 @@ from apps.catalogos.municipios.models import Municipio
 Almacenes
 """
 
-
-
-
 class Almacen(models.Model):
     codigo = models.CharField(verbose_name='Código', max_length=50, unique=True)
     nombre = models.CharField(verbose_name='Nombre', max_length=100)
@@ -30,4 +27,3 @@ class Almacen(models.Model):
 
     def __str__(self):
         return f" {self.nombre} "
-

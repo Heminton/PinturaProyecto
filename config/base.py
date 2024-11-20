@@ -46,7 +46,17 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
+    #'leaflet',#paquete para geolocalizacion
+    #'django_filters',#paquete para geolocalizacion
 ]+ SEGURIDAD_SETTING_APPS + CATALOGOS_SETTING_APPS + MOVIMIENTOS_SETTING_APPS
+
+#para establecer la configuracion del mapa
+# LEAFLET_CONFIG = {
+#     'DEFAULT_CENTER': (12.1364, -86.2514),  # Coordenadas de ejemplo (Managua)
+#     'DEFAULT_ZOOM': 10,
+#     'MIN_ZOOM': 5,
+#     'MAX_ZOOM': 18,
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -104,6 +114,20 @@ DATABASES = {
     }
 }
 """
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mssql',  # Utilizamos el backend mssql-django
+#         'NAME': 'pinturabd',  # Nombre de la base de datos
+#         'HOST': 'MELQUIS',  # IP del servidor SQL Server
+#         'OPTIONS': {
+#             'driver': 'ODBC Driver 17 for SQL Server',  # Driver ODBC instalado
+#             'trusted_connection': 'yes',  # Habilita la autenticación de Windows
+#             'extra_params': 'TrustServerCertificate=yes',  # Útil si estás usando SSL sin un certificado de confianza
+#         },
+#     }
+# }
+
 
 
 
@@ -165,7 +189,7 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),  # Duración del token de acceso
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Duración del token de acceso
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # Duración del token de refresco
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,

@@ -13,7 +13,7 @@ class AlmacenApiView(APIView):
     @swagger_auto_schema(responses={200: AlmacenSerializer(many=True)})
     def get(self, request):
         """
-        Listar todos los departamentos.
+        Listar todos los almacenes.
         """
         almacenes = Almacen.objects.all()
         serializer = AlmacenSerializer(almacenes, many=True)
@@ -22,7 +22,7 @@ class AlmacenApiView(APIView):
     @swagger_auto_schema(request_body=AlmacenSerializer, responses={201: AlmacenSerializer})
     def post(self, request):
         """
-        Crear un nuevo departamento.
+        Crear un nuevo almacen.
         """
         serializer = AlmacenSerializer(data=request.data)
         if serializer.is_valid():

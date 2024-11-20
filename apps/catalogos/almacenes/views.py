@@ -7,9 +7,12 @@ from drf_yasg.utils import swagger_auto_schema
 from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
-from ...permissions import CustomPermission
+#from ...permissions import CustomPermission
+from apps.seguridad.permissions import CustomPermission
 from config.utils.Pagination import PaginationMixin
 import logging.handlers
+# from django.shortcuts import render
+# from .forms import AlmacenFilter
 
 
 # Configura el logger
@@ -117,7 +120,7 @@ class AlmacenDetails(APIView):
         logger.info("DELETE request to delete almacen with ID: %s", pk)
         almacen = get_object_or_404(Almacen, id=pk)
         if not almacen:
-            return Response({'error': 'Departamento no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'Almacen no encontrado'}, status=status.HTTP_404_NOT_FOUND)
 
         self.check_object_permissions(request, almacen)  # Verificación de permisos
         almacen.delete()

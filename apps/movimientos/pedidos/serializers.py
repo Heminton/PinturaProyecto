@@ -6,20 +6,23 @@ from .models import DetallePedido, Pedido
 """
 class DetallePedidoSerializer(ModelSerializer):
     producto_nombre = CharField(source='producto.nombre', read_only=True)
+    cliente_nombre = CharField(source='cliente.nombres', read_only=True)
+    proveedor_nombre = CharField(source='proveedores.nombres', read_only=True)
     class Meta:
         model = DetallePedido
-        fields = ['producto', 'cantidad', 'producto_nombre']
+        fields = ['producto', 'cantidad', 'producto_nombre','cliente','cliente_nombre','proveedor','proveedor_nombre']
 
 """
-    Serializador de la clase Venta
+    Serializador de la clase Pedido
 """
-class VentaSerializer(ModelSerializer):
+class PedidoSerializer(ModelSerializer):
     cliente_nombre = CharField(source='cliente.nombres', read_only=True)
-    #vendedor_nombre = CharField(source='vendedores.nombres', read_only=True)
+    producto_nombre = CharField(source='productos.nombres', read_only=True)
+    # proveedor_nombre = CharField(source='proveedores.nombres', read_only=True)
     detalles = DetallePedidoSerializer(many=True)
 
     class Meta:
         model = Pedido
-        fields = ['cliente', 'cliente_nombre',  'detalles']
+        fields = ['cliente','cliente_nombre','producto','producto_nombre','detalles']
 
 

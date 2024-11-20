@@ -7,11 +7,18 @@ urlpatterns = [
 
  path('almacenes/', include('apps.catalogos.almacenes.urls')),
 
- path('catalogos/', include('apps.catalogos.catalogos.urls')),
+ # path('catalogos/', include('apps.catalogos.catalogos.urls')),
 
  path('clientes/', include('apps.catalogos.clientes.urls')),
 
  #path('estados/', include('apps.catalogos.estados.urls')),
 
- #path('marcas/', include('apps.catalogos.marcas.urls')),
+ path('marcas/', include('apps.catalogos.marcas.urls')),
+
+ path('proveedores/', include('apps.catalogos.proveedores.urls')),
+
+path('tipos/', include('apps.catalogos.tipos.urls')),
+
+path('productos/', include('apps.catalogos.productos.urls')),
+
 ]

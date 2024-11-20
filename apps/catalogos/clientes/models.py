@@ -11,6 +11,11 @@ class Cliente(models.Model):
     direccion = models.CharField(verbose_name='Dirección', max_length=100)
     class Meta:
         verbose_name_plural = 'Clientes'
+        permissions = [
+            ("puede_aprobar", "Puede aprobar registros"),
+            ("puede_rechazar", "Puede rechazar registros"),
+        ]
 
     def __str__(self):
-        return f"{self.codigo} - {self.nombre} - {self.apellido} - {self.telefono} - {self.direccion}"
+        return f"{self.nombre}"
+        # return f"{self.codigo} - {self.nombre} - {self.apellido} - {self.telefono} - {self.direccion}"

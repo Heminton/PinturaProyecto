@@ -1,9 +1,9 @@
 from rest_framework.serializers import ModelSerializer
 
-from apps.catalogos.marcas.models import Marca
+from apps.catalogos.tipos.models import Tipo
 
-class MarcaSerializer(ModelSerializer):
+class TipoSerializer(ModelSerializer):
     class Meta:
-        model = Marca
+        model = Tipo
         fields = ['codigo', 'nombre']
         #fields = '__all__'
